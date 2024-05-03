@@ -1,41 +1,33 @@
 #include "sort.h"
-
 /**
- * selection_sort - Sort a given array using the Bubble
- * sort algorithm in the ascending order.
- *
- * @array: The array to be sorted.
- * @size: The size of @array.
- *
- **/
+ * selection_sort - function that sorts an array of integers in ascending
+ * order using the Selection sort algorithm
+ * @size: size of the array
+ * @array: list with numbers
+ */
 void selection_sort(int *array, size_t size)
 {
-	size_t min_value_index = 0;
-	size_t pass = 0, index = 0;
-	size_t passes_required = 0;
-	int temp = 0;
+	size_t i, index;
+	int tmp, swap, flag = 0;
 
-	if (array == NULL || size < 2)
-	{
+	if (array == NULL)
 		return;
-	}
-	passes_required = size - 1;
-	for (pass = 0; pass < passes_required; pass++)
+	for (i = 0; i < size; i++)
 	{
-		min_value_index = pass;
-		for (index = pass + 1; index < size; index++)
+		tmp = i;
+		flag = 0;
+		for (index = i + 1; index < size; index++)
 		{
-			if (array[index] < array[min_value_index])
+			if (array[tmp] > array[index])
 			{
-				min_value_index = index;
+				tmp = index;
+				flag += 1;
 			}
 		}
-		temp = array[pass];
-		array[pass] = array[min_value_index];
-		array[min_value_index] = temp;
-		if (min_value_index > pass)
-		{
+		swap = array[i];
+		array[i] = array[tmp];
+		array[tmp] = swap;
+		if (flag != 0)
 			print_array(array, size);
-		}
 	}
 }
